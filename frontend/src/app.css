@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Marcellus&family=Montserrat:wght@400;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #dd013f;
+  --color-ink: #081430;
+  --color-border: #d3d3d3;
+
+  --font-heading: "Marcellus", serif;
+  --font-body: "Montserrat", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-white font-body text-ink;
+  }
+}
+
+@layer components {
+  .button-primary {
+    @apply bg-primary px-5 py-3 font-body font-normal uppercase text-white;
+    font-size: 18px;
+    line-height: 16px;
+    letter-spacing: 0.4px;
+  }
+
+  .button-secondary {
+    @apply border-2 border-primary px-5 py-3 font-body font-normal uppercase text-primary;
+    font-size: 18px;
+    line-height: 16px;
+    letter-spacing: 0.4px;
+  }
+
+  .form-label {
+    @apply block font-body text-[18px] font-semibold uppercase text-ink;
+  }
+
+  .form-input {
+    @apply mt-2 w-full border border-border px-3 py-2 font-body text-ink outline-none;
+  }
+
+  .form-input:focus {
+    @apply border-primary;
+  }
+}
