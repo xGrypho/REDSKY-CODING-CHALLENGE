@@ -1,0 +1,8 @@
+# Environment variables and secrets
+backend/.env
+
+# Generated dependencies and build output
+backend/node_modules/
+backend/dist/
+frontend/node_modules/
+frontend/dist/
