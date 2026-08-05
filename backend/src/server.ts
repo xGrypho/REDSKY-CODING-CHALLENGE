@@ -16,6 +16,8 @@ async function loadInitialUsers(): Promise<void> {
       throw new Error('REQRES_API_KEY is not configured')
     }
 
+    console.log('[API] Loading initial users from ReqRes...')
+
     const response = await fetch('https://reqres.in/api/users', {
       headers: {
         'x-api-key': apiKey,
@@ -41,6 +43,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/api/users', (req: Request, res: Response) => {
+  console.log(`[API] Returning ${users.length} cached users`)
   res.json(users);
 });
 
@@ -68,6 +71,7 @@ let nextId: number
   }
 
   users.push(newUser)
+  console.log(`[API] User created (id: ${newUser.id})`)
 
   res.status(201).json(newUser)
 })
@@ -95,6 +99,7 @@ app.put('/api/users/:id', (req: Request, res: Response) => {
   }
 
   users[userIndex] = updatedUser
+  console.log(`[API] User updated (id: ${updatedUser.id})`)
 
   res.json(updatedUser)
 })
@@ -108,6 +113,7 @@ app.delete('/api/users/:id', (req: Request, res: Response) => {
   }
 
   users.splice(userIndex, 1)
+  console.log(`[API] User deleted (id: ${id})`)
 
   res.status(204).send()
 })

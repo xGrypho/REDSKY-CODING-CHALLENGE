@@ -32,6 +32,7 @@ function showToast(message: string, type: ToastType = 'success'): void {
 
 async function fetchUsers(): Promise<void> {
   try {
+    console.log('[UI] Loading users from the API...')
     const response = await fetch('http://localhost:3800/api/users');
     
     if (!response.ok) {
@@ -39,6 +40,7 @@ async function fetchUsers(): Promise<void> {
     }
     const data: User[] = await response.json();
     users = data
+    console.log(`[UI] Loaded ${users.length} users`)
   } catch (error) {
     console.error('Failed to fetch users:', error);
     throw error;
@@ -51,6 +53,7 @@ async function fetchUsers(): Promise<void> {
 
 async function createUser(newUser: UserInput): Promise<void>{
   try {
+    console.log('[UI] Creating user...')
     const response = await fetch('http://localhost:3800/api/users', {
       method: 'POST',
       headers: {
@@ -67,6 +70,7 @@ async function createUser(newUser: UserInput): Promise<void>{
 
     users = [...users, createdUser]
     isCreateModalOpen = false
+    console.log(`[UI] User created (id: ${createdUser.id})`)
     showToast('User created successfully')
   } catch (error) {
     console.error('Failed to create user:', error)
@@ -76,6 +80,7 @@ async function createUser(newUser: UserInput): Promise<void>{
 
 async function updateUser(id: number, updatedData: UserInput): Promise<void>{
   try {
+    console.log(`[UI] Updating user (id: ${id})`)
     const response = await fetch(`http://localhost:3800/api/users/${id}`, {
       method: 'PUT',
       headers: {
@@ -91,6 +96,7 @@ async function updateUser(id: number, updatedData: UserInput): Promise<void>{
     users = users.map((user) => (user.id === id ? updatedUser : user))
     isCreateModalOpen = false
     selectedUser = null
+    console.log(`[UI] User updated (id: ${updatedUser.id})`)
     showToast('User updated successfully')
   } catch (error) {
     console.error('Failed to update user:', error)
@@ -100,6 +106,7 @@ async function updateUser(id: number, updatedData: UserInput): Promise<void>{
 
 async function deleteUser(id: number): Promise<void>{
   try {
+    console.log(`[UI] Deleting user (id: ${id})`)
     const response = await fetch(`http://localhost:3800/api/users/${id}`, {
       method: 'DELETE',
     })
@@ -108,6 +115,7 @@ async function deleteUser(id: number): Promise<void>{
       throw new Error(`HTTP error: ${response.status}`)
     }
     users = users.filter((user) => user.id !== id)
+    console.log(`[UI] User deleted (id: ${id})`)
     showToast('User deleted successfully')
   } catch (error) {
     console.error('Failed to delete user:', error)
